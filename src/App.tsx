@@ -1,24 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
+import  Header from './components/Header';
+import  Footer from './components/Footer';
+import  MyAccount from './components/MyAccount';
+import  EditDetails from './components/EditDetails';
+import  DeleteDetails from './components/DeleteDetails';
 import './App.css';
+import  {BrowserRouter as Router,Route,Routes}from 'react-router-dom';   
+import Login from './components/Login';
+import HomePage from './components/HomePage';
+import Register from './Register';
 
+export const MyContext = React.createContext({});
 function App() {
+  const [value, setvalue] = React.useState(null);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MyContext.Provider value={{value, setvalue}}>
+      <Router>
+      <Header/>
+      
+      <Routes>
+      < Route  path ="/"  element={<Login/>}/>
+    < Route  path ="/MyAccount"  element={<MyAccount/>}/>
+    < Route  path ="/HomePage/:id"  element={<HomePage/>}/>
+    < Route path="/EditDetails"  element={<EditDetails/>}/>
+    < Route path="/DeleteDetails"  element={<DeleteDetails/>}/>
+    < Route path="/Register"  element={<Register/>}/>
+
+    </Routes>
+    <Footer/>
+    </Router>
+    </MyContext.Provider>
     </div>
   );
 }
